@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomatic.iniciarSessioJava">
+   <children>
+      <Label layoutX="195.0" layoutY="47.0" text="Iniciar Sessio">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label layoutX="147.0" layoutY="151.0" text="Usuari:" />
+      <Label layoutX="108.0" layoutY="242.0" text="Contrasenya:" />
+      <Label fx:id="missatge" layoutX="283.0" layoutY="293.0" text="Label" />
+      <TextField fx:id="usuari" layoutX="234.0" layoutY="147.0" />
+      <TextField fx:id="contrasenya" layoutX="234.0" layoutY="238.0" />
+      <Button layoutX="277.0" layoutY="337.0" mnemonicParsing="false" onAction="#switchToMenu" text="Button" />
+   </children>
+</AnchorPane>

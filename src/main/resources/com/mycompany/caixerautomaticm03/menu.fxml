@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomatic.menuJava">
+   <children>
+      <Button fx:id="menuJava" layoutX="541.0" layoutY="14.0" mnemonicParsing="false" onAction="#switchToPerfil" prefHeight="37.0" prefWidth="51.0" text="Perfil" />
+      <RadioButton fx:id="compteEstalvi" layoutX="30.0" layoutY="14.0" mnemonicParsing="false" text="estalvi" />
+      <RadioButton fx:id="compteCorrent" layoutX="28.0" layoutY="42.0" mnemonicParsing="false" text="corrent" />
+      <Button fx:id="crearCompte" layoutX="27.0" layoutY="96.0" mnemonicParsing="false" onAction="#crearCompteJava" text="Crear Compte" />
+      <ListView fx:id="llistaComptes" layoutX="36.0" layoutY="173.0" prefHeight="188.0" prefWidth="176.0" />
+      <Label layoutX="86.0" layoutY="140.0" text="Comptes">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="212.0" layoutY="41.0" text="Retirar Diners">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="242.0" layoutY="78.0" prefHeight="37.0" prefWidth="67.0" />
+      <Button layoutX="246.0" layoutY="128.0" mnemonicParsing="false" text="retirar" />
+      <Label layoutX="370.0" layoutY="41.0" text="Ingresar Diners">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField layoutX="406.0" layoutY="78.0" prefHeight="37.0" prefWidth="67.0" />
+      <Button layoutX="404.0" layoutY="128.0" mnemonicParsing="false" text="ingresar" />
+      <Button layoutX="427.0" layoutY="337.0" mnemonicParsing="false" text="Transferir" />
+      <Label layoutX="349.0" layoutY="188.0" text="Fer Transferencia:">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <TextField layoutX="370.0" layoutY="235.0" />
+      <TextField layoutX="370.0" layoutY="282.0" prefHeight="37.0" prefWidth="171.0" />
+      <Label layoutX="255.0" layoutY="239.0" prefHeight="16.0" prefWidth="109.0" text="Compte corrent:" />
+      <Label layoutX="249.0" layoutY="293.0" text="Quantitat Diners:" />
+      <TextField fx:id="Saldo" layoutX="53.0" layoutY="66.0" prefHeight="10.0" prefWidth="67.0" />
+      <Label layoutX="9.0" layoutY="70.0" text="saldo" />
+   </children>
+</AnchorPane>
