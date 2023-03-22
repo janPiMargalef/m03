@@ -24,7 +24,7 @@ public class Caixer {
  public static ArrayList<Client> usuaris = new ArrayList<Client>();
  
   public void initialize() {
-        // Populate the users ArrayList with some example users
+      
         usuaris.add(new Client("prova1", "pass1"));
   }
  
@@ -42,9 +42,9 @@ private void ComprobaLogin(ActionEvent event) {
     }
     
     if (found) {
-        missatge.setText("FUNCIONA");
+        missatge.setText("FUNCIONA"); //dirigir to menu
     } else {
-        missatge.setText("NO FUNCIONA");
+        missatge.setText("NO FUNCIONA"); //contar per bloquejar (boolean bloquejat = false;)
     }
 }
     
