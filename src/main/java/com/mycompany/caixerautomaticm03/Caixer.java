@@ -51,7 +51,11 @@ public class Caixer {
  public static ArrayList<Client> usuaris = new ArrayList<Client>();
  
   public void initialize() {
+<<<<<<< HEAD
         
+=======
+      
+>>>>>>> 9bb29558c5c6af983f852c9b6891fd840c99a533
         usuaris.add(new Client("prova1", "pass1"));
         
         //compte(aixo dona error)
@@ -86,6 +90,7 @@ private void ComprobaLogin(ActionEvent event) throws IOException {
     }
     
     if (found) {
+<<<<<<< HEAD
     Parent menuParent = FXMLLoader.load(getClass().getResource("menu.fxml"));
         Scene menuScene = new Scene(menuParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -93,6 +98,11 @@ private void ComprobaLogin(ActionEvent event) throws IOException {
         window.show();
     } else {
         missatge.setText("usuari o contrasenya incorrectes!");
+=======
+        missatge.setText("FUNCIONA"); //dirigir to menu
+    } else {
+        missatge.setText("NO FUNCIONA"); //contar per bloquejar (boolean bloquejat = false;)
+>>>>>>> 9bb29558c5c6af983f852c9b6891fd840c99a533
     }
 }
 
