@@ -4,10 +4,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomatic.perfil">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomaticm03.Caixer">
    <children>
-      <Label fx:id="hola" layoutX="264.0" layoutY="137.0" text="hola" />
-      <Button fx:id="perfilJava" layoutX="229.0" layoutY="329.0" mnemonicParsing="false" onAction="#switchToIniciarSessio" text="tanca sessio" />
-      <Button fx:id="perfil" layoutX="503.0" layoutY="31.0" mnemonicParsing="false" onAction="#switchToMenu" prefHeight="49.0" prefWidth="60.0" text="Perfil" />
+      <Label fx:id="nomUsuari" layoutX="487.0" layoutY="75.0" text="Nom Usuari" />
+      <Button layoutX="251.0" layoutY="339.0" mnemonicParsing="false" onAction="#tancarSessio" text="tanca sessio" />
+      <Button layoutX="472.0" layoutY="25.0" mnemonicParsing="false" onAction="#mostrarPerfil" prefHeight="37.0" prefWidth="105.0" text="Mostrar Nom" />
+      <Button layoutX="244.0" layoutY="268.0" mnemonicParsing="false" onAction="#tornaMenu" prefHeight="57.0" prefWidth="113.0" text="Torna al menu" />
    </children>
 </AnchorPane>

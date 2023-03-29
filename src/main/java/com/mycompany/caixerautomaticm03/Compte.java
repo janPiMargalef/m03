@@ -16,32 +16,43 @@ import javafx.scene.control.TextField;
  * @author alumne
  */
 public class Compte {
-String numero;
-protected LocalDateTime dataDiaEntrada;
-double saldo;
-Date dataCreacio;
+    private String numeroCompte;
+    private String titularCompte;
+    private String tipoCompte;
+    private double saldo;
 
-    public LocalDateTime getDataDiaEntrada() {
-        return dataDiaEntrada;
+    public Compte(String numeroCompte, String titularCompte, String tipoCompte, double saldo) {
+        this.numeroCompte = titularCompte;
+        this.titularCompte = 
+        this.tipoCompte = tipoCompte;
+        this.saldo = saldo;
+        
     }
 
-    public void setDataDiaEntrada(LocalDateTime dataDiaEntrada) {
-        this.dataDiaEntrada = dataDiaEntrada;
+    //getters i setters
+
+    public String getNumeroCompte() {
+        return numeroCompte;
     }
 
-
- 
-
-    
-    
-    
-
-    public String getNumero() {
-        return numero;
+    public void setNumeroCompte(String numeroCompte) {
+        this.numeroCompte = numeroCompte;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public String getTitularCompte() {
+        return titularCompte;
+    }
+
+    public void setTitularCompte(String titularCompte) {
+        this.titularCompte = titularCompte;
+    }
+
+    public String getTipoCompte() {
+        return tipoCompte;
+    }
+
+    public void setTipoCompte(String tipoCompte) {
+        this.tipoCompte = tipoCompte;
     }
 
     public double getSaldo() {
@@ -51,26 +62,14 @@ Date dataCreacio;
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
     
-    public double calcularInteres(int interes){//int interes es el %  //compte corrent -> 8%      compte estalvi -> 4% ?
-        double resta = 0;
-        double mitjanaSaldo = 0;
-        LocalDateTime dataHoraActual = LocalDateTime.now();
-        int hourOfDay = dataHoraActual.getHour();
-        Duration durada = Duration.between(this.dataDiaEntrada,dataHoraActual);
-        if(durada.equals(730))//calcular la mitjana del saldo després d'un mes
-        {
-             
-            mitjanaSaldo = saldo + mitjanaSaldo;
-        }
-        if(durada.equals(8760))//calcular la resta després d'un any
-        {
-            
-            interes = interes/12; //interes mensual
-            resta = interes * mitjanaSaldo;
-            saldo = saldo - resta;
-        }
-       
-      return saldo;
-    } 
+    public void depositar(double quantitat) {
+        saldo += quantitat;
+    }
+
+    public void retirar(double quantitat) {
+        saldo -= quantitat;
+    }
 }
+
