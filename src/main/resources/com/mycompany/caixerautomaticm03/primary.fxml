@@ -10,6 +10,6 @@
       <TextField fx:id="usernameTextField" layoutX="215.0" layoutY="129.0" />
       <TextField fx:id="passwordTextField" layoutX="215.0" layoutY="216.0" />
       <Button layoutX="270.0" layoutY="312.0" mnemonicParsing="false" onAction="#ComprobaLogin" text="Button" />
-      <Label fx:id="missatge" layoutX="282.0" layoutY="273.0" text="Label" />
+      <Label fx:id="missatge" layoutX="282.0" layoutY="273.0" />
    </children>
 </AnchorPane>

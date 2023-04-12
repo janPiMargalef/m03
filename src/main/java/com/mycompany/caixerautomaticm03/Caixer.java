@@ -5,6 +5,7 @@
 package com.mycompany.caixerautomaticm03;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,10 +14,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 /**
  *
  * @author alumne
@@ -38,43 +43,69 @@ public class Caixer {
        @FXML
        TextField saldoTextField;
        @FXML
-       TextField tipoCompteTextField;
-       
-//crear compte
+       RadioButton compteCorrent;
        @FXML
-    private ListView<Compte> comptesListView;
-
-    private ObservableList<Compte> comptesBancaris;
-
-    
-       //crear usuari
+       RadioButton compteEstalvis;
+       
+       
+        //crear usuari
  public static ArrayList<Client> usuaris = new ArrayList<Client>();
  
   public void initialize() {
-<<<<<<< HEAD
-        
-=======
-      
->>>>>>> 9bb29558c5c6af983f852c9b6891fd840c99a533
-        usuaris.add(new Client("prova1", "pass1"));
-        
-        //compte(aixo dona error)
-        
-        
+      usuaris.add(new Client("prova1", "pass1"));
+          comptesListView.setItems(comptesBancaris);
   }
-  @FXML //IMPORTANT proper dia cambiar la classe , implementar if -->if(compteCorrent.isSelected() per definir si es corrent o ahorros, else{...,caambiar el String tipoCompte) + organitzar el sceneBuilder
-    private void afegirCompte() {//no funciona, cambiar class afegirCompte
+       
+//crear compte
+    @FXML
+    private ListView<Compte> comptesListView;
+    private ObservableList<Compte> comptesBancaris = FXCollections.observableArrayList();
+
+    private long generarNumeroCompteAleatori() {
+    Random rand = new Random();
+    long numeroAleatori = (long) (rand.nextInt(900000000) + 1000000000);
+    return numeroAleatori;
+}
+      
+  @FXML  
+    private void afegirCompte() {
+        
+        
+        
+        if(!titularCompteTextField.equals("" ) && !saldoTextField.equals(""))
+        {
         comptesBancaris = FXCollections.observableArrayList();
         comptesListView.setItems(comptesBancaris);
-        String numeroCompte = numeroCompteTextField.getText();
+        long numeroCompte = generarNumeroCompteAleatori();
         String titularCompte = titularCompteTextField.getText();
-        String tipoCompte = tipoCompteTextField.getText();
         double saldo = Double.parseDouble(saldoTextField.getText());
-        Compte nouCompte = new Compte(numeroCompte, titularCompte,tipoCompte, saldo);
+        Compte nouCompte = new Compte(numeroCompte, titularCompte, saldo);
         comptesBancaris.add(nouCompte);
         comptesListView.refresh();
+        //if SelectBUTTON... 
+        
+        //llistarComptes
+        comptesListView.setCellFactory(new Callback<ListView<Compte>, ListCell<Compte>>() {
+    @Override
+    public ListCell<Compte> call(ListView<Compte> listView) {
+        return new ListCell<Compte>() {
+            @Override
+            protected void updateItem(Compte compteNou, boolean empty) {
+                super.updateItem(compteNou, empty);
+                if (compteNou != null) {
+                    setText(numeroCompte + "- " + titularCompte + "- " + "- " + saldo);
+                } else {
+                    setText("");
+                }
+            }
+        };
     }
- 
+});
+        }
+        numeroCompteTextField.setText("");
+        titularCompteTextField.setText("");
+        saldoTextField.setText("");
+    }
   //iniciar sessió
   @FXML
 private void ComprobaLogin(ActionEvent event) throws IOException {
@@ -90,7 +121,7 @@ private void ComprobaLogin(ActionEvent event) throws IOException {
     }
     
     if (found) {
-<<<<<<< HEAD
+
     Parent menuParent = FXMLLoader.load(getClass().getResource("menu.fxml"));
         Scene menuScene = new Scene(menuParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -98,23 +129,9 @@ private void ComprobaLogin(ActionEvent event) throws IOException {
         window.show();
     } else {
         missatge.setText("usuari o contrasenya incorrectes!");
-=======
-        missatge.setText("FUNCIONA"); //dirigir to menu
-    } else {
-        missatge.setText("NO FUNCIONA"); //contar per bloquejar (boolean bloquejat = false;)
->>>>>>> 9bb29558c5c6af983f852c9b6891fd840c99a533
-    }
-}
 
-//entrar al perfil
-@FXML
-private void perfil(ActionEvent event) throws IOException{
-    
-    Parent perfilParent = FXMLLoader.load(getClass().getResource("perfil.fxml"));
-        Scene menuScene = new Scene(perfilParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(menuScene);
-        window.show(); 
+   
+    }
 }
 //mostrar usuari profile
 @FXML
@@ -134,18 +151,5 @@ private void tancarSessio(ActionEvent event) throws IOException{
         window.setScene(primaryScene);
         window.show(); 
 }
-@FXML
-private void tornaMenu(ActionEvent event) throws IOException{
-    
-    Parent menuParent = FXMLLoader.load(getClass().getResource("menu.fxml"));
-        Scene menuScene = new Scene(menuParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(menuScene);
-        window.show();
-}
 
 }
-
-
-
-

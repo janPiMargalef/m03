@@ -11,8 +11,8 @@ package com.mycompany.caixerautomaticm03;
 public class CompteEstalvis extends Compte {
     private double tasaInteres;
 
-    public CompteEstalvis(String numeroCompte, double saldo, String titularCompte) {
-        super(numeroCompte, "Compte d'Estalvis",titularCompte, saldo);
+    public CompteEstalvis(long numeroCompte, double saldo, String titularCompte) {
+        super(numeroCompte ,titularCompte, saldo);
         this.tasaInteres = 0.0;
     }
     public void establirTasaInteres(double tasa) { //interes pel compte d'estalvi

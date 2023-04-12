@@ -11,8 +11,8 @@ package com.mycompany.caixerautomaticm03;
 public class CompteCorrent extends Compte {
     private double sobregir;
 
-    public CompteCorrent(String numeroCompte, double saldo, String titularCompte) {
-        super(numeroCompte, "Compte Corrent",titularCompte, saldo);
+    public CompteCorrent(long numeroCompte, double saldo, String titularCompte) {
+        super(numeroCompte, titularCompte, saldo);
         this.sobregir = 0;
     }
 

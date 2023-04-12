@@ -16,52 +16,49 @@ import javafx.scene.control.TextField;
  * @author alumne
  */
 public class Compte {
-    private String numeroCompte;
+    private long numeroCompte;
     private String titularCompte;
-    private String tipoCompte;
     private double saldo;
 
-    public Compte(String numeroCompte, String titularCompte, String tipoCompte, double saldo) {
-        this.numeroCompte = titularCompte;
-        this.titularCompte = 
-        this.tipoCompte = tipoCompte;
+    public Compte(long numeroCompte, String titularCompte, double saldo) {
+        this.numeroCompte = numeroCompte;
+        this.titularCompte = titularCompte;
         this.saldo = saldo;
         
     }
 
-    //getters i setters
+    //getters i setters + transferir
 
-    public String getNumeroCompte() {
+    public long getNumeroCompte() {
         return numeroCompte;
     }
 
-    public void setNumeroCompte(String numeroCompte) {
-        this.numeroCompte = numeroCompte;
-    }
+    
 
     public String getTitularCompte() {
         return titularCompte;
+    }
+
+ 
+
+    
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void setNumeroCompte(long numeroCompte) {
+        this.numeroCompte = numeroCompte;
     }
 
     public void setTitularCompte(String titularCompte) {
         this.titularCompte = titularCompte;
     }
 
-    public String getTipoCompte() {
-        return tipoCompte;
-    }
-
-    public void setTipoCompte(String tipoCompte) {
-        this.tipoCompte = tipoCompte;
-    }
-
-    public double getSaldo() {
-        return saldo;
-    }
-
     public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
+
+    
 
     
     public void depositar(double quantitat) {
@@ -71,5 +68,6 @@ public class Compte {
     public void retirar(double quantitat) {
         saldo -= quantitat;
     }
+    
 }
 
