@@ -8,10 +8,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="674.0" prefWidth="875.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomaticm03.Caixer">
+<AnchorPane id="AnchorPane" prefHeight="327.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixerautomaticm03.Caixer">
    <children>
       <Button fx:id="crearCompteBoto" layoutX="60.0" layoutY="398.0" mnemonicParsing="false" onAction="#afegirCompte" text="Crear Compte" />
-      <ListView fx:id="comptesListView" layoutX="25.0" layoutY="461.0" prefHeight="188.0" prefWidth="176.0" />
+      <ListView fx:id="comptesListView" layoutX="27.0" layoutY="455.0" prefHeight="188.0" prefWidth="176.0" />
       <Label layoutX="76.0" layoutY="426.0" text="Comptes">
          <font>
             <Font size="17.0" />
@@ -41,7 +41,7 @@
       <TextField layoutX="660.0" layoutY="549.0" prefHeight="37.0" prefWidth="171.0" />
       <Label layoutX="568.0" layoutY="503.0" prefHeight="16.0" prefWidth="109.0" text="Compte corrent:" />
       <Label layoutX="534.0" layoutY="560.0" text="Quantitat Diners:" />
-      <TextField fx:id="titularCompteTextField" layoutX="81.0" layoutY="290.0" prefHeight="10.0" prefWidth="67.0" />
+      <TextField fx:id="titularTextField" layoutX="81.0" layoutY="290.0" prefHeight="10.0" prefWidth="67.0" />
       <TextField fx:id="saldoTextField" layoutX="81.0" layoutY="361.0" prefHeight="10.0" prefWidth="67.0" />
       <Label layoutX="29.0" layoutY="302.0" text="titular" />
       <Label layoutX="31.0" layoutY="365.0" text="saldo" />

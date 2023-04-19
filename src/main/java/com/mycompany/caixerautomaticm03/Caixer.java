@@ -39,7 +39,7 @@ public class Caixer {
        @FXML
        TextField numeroCompteTextField;
        @FXML
-       TextField titularCompteTextField;
+       TextField titularTextField;
        @FXML
        TextField saldoTextField;
        @FXML
@@ -51,61 +51,59 @@ public class Caixer {
         //crear usuari
  public static ArrayList<Client> usuaris = new ArrayList<Client>();
  
-  public void initialize() {
-      usuaris.add(new Client("prova1", "pass1"));
-          comptesListView.setItems(comptesBancaris);
-  }
+ 
        
 //crear compte
     @FXML
-    private ListView<Compte> comptesListView;
-    private ObservableList<Compte> comptesBancaris = FXCollections.observableArrayList();
-
+   
     private long generarNumeroCompteAleatori() {
     Random rand = new Random();
     long numeroAleatori = (long) (rand.nextInt(900000000) + 1000000000);
     return numeroAleatori;
 }
       
+@FXML
+private ListView<Compte> comptesListView;
+private ObservableList<Compte> CompteList = FXCollections.observableArrayList();
+    
   @FXML  
     private void afegirCompte() {
         
         
+        if (CompteList.size() < 10) {
+            
+            long numeroCompte = generarNumeroCompteAleatori();
+            Double Saldo = Double.parseDouble(saldoTextField.getText());    
+            String titular = titularTextField.getText();
+             Compte cuenta = new Compte(numeroCompte, titular, Saldo);
+        CompteList.add(cuenta);
         
-        if(!titularCompteTextField.equals("" ) && !saldoTextField.equals(""))
-        {
-        comptesBancaris = FXCollections.observableArrayList();
-        comptesListView.setItems(comptesBancaris);
-        long numeroCompte = generarNumeroCompteAleatori();
-        String titularCompte = titularCompteTextField.getText();
-        double saldo = Double.parseDouble(saldoTextField.getText());
-        Compte nouCompte = new Compte(numeroCompte, titularCompte, saldo);
-        comptesBancaris.add(nouCompte);
         comptesListView.refresh();
-        //if SelectBUTTON... 
         
-        //llistarComptes
-        comptesListView.setCellFactory(new Callback<ListView<Compte>, ListCell<Compte>>() {
+    }
+    }
+    
+     public void initialize() {
+      usuaris.add(new Client("prova1", "pass1"));
+      comptesListView.setCellFactory(new Callback<ListView<Compte>, ListCell<Compte>>() {
     @Override
-    public ListCell<Compte> call(ListView<Compte> listView) {
-        return new ListCell<Compte>() {
+    public ListCell<Compte> call(ListView<Compte> param) {
+        return new ListCell<>() {
             @Override
-            protected void updateItem(Compte compteNou, boolean empty) {
-                super.updateItem(compteNou, empty);
-                if (compteNou != null) {
-                    setText(numeroCompte + "- " + titularCompte + "- " + "- " + saldo);
+            protected void updateItem(Compte cuenta, boolean empty) {
+                super.updateItem(cuenta, empty);
+                if (cuenta != null) {
+                    //setText(Compte.getNumeroCompte() + " - " + Saldo + " - " + titular); error
                 } else {
                     setText("");
                 }
+                
             }
         };
     }
 });
-        }
-        numeroCompteTextField.setText("");
-        titularCompteTextField.setText("");
-        saldoTextField.setText("");
-    }
+  }
+    
   //iniciar sessió
   @FXML
 private void ComprobaLogin(ActionEvent event) throws IOException {
