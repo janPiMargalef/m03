@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 /**
  *
- * @author alumne
+ * @author alumnea
  */
 public class Caixer {
     
