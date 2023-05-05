@@ -28,11 +28,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 
 public class OperacionsController implements Initializable {
@@ -56,9 +60,11 @@ private ListView<Operacio> operacionsListView;
       private List<Compte> comptes = new ArrayList<>();
 
     public void initData(String email) {
-        userEmail = email;
-        cargarCuentasDeUsuario();
-    }
+    userEmail = email;
+    cargarCuentasDeUsuario();
+    cargarOperacionesDeUsuario(); 
+}
+
 
 
     public void cargarCuentasDeUsuario() {
@@ -84,11 +90,10 @@ private ListView<Operacio> operacionsListView;
             }
         }
 
-        // Actualiza la ListView con las cuentas cargadas
         ObservableList<Compte> comptesObservableList = FXCollections.observableArrayList(comptes);
         comptesListView.setItems(comptesObservableList);
     } catch (IOException e) {
-        System.err.println("Error al leer el archivo comptes.csv: " + e.getMessage());
+        System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 }
 
@@ -101,8 +106,7 @@ public void initialize(URL location, ResourceBundle resources) {
 
     bitllets = Bitllet.carregarBitllets(bitlletsFile.getAbsolutePath());
     
-    cargarCuentasDeUsuario();
-    cargarOperacionesDeUsuario();
+    
 }
 public void cargarOperacionesDeUsuario() {
     String projectDirectory = System.getProperty("user.dir");
@@ -122,9 +126,9 @@ public void cargarOperacionesDeUsuario() {
 
                 Operacio operacion = new Operacio(data, email, tipus, importe);
                 operacions.add(operacion);
-                System.out.println("Operación agregada: " + operacion); // Línea de depuración
+                
             } else {
-                System.out.println("Condición no cumplida: parts.length = " + parts.length + ", parts[1] = " + parts[1] + ", userEmail = " + userEmail); // Línea de depuración
+               
             }
         }
 
@@ -132,7 +136,7 @@ public void cargarOperacionesDeUsuario() {
         ObservableList<Operacio> operacionesObservableList = FXCollections.observableArrayList(operacions);
         operacionsListView.setItems(operacionesObservableList);
     } catch (IOException e) {
-        System.err.println("Error al leer el archivo operacions.csv: " + e.getMessage());
+        System.err.println("Error en operacions.csv: " + e.getMessage());
     }
 }
 
@@ -178,7 +182,7 @@ public void actualizarSaldoEnCSV(Compte compteActualizado) {
             writer.newLine();
         }
     } catch (IOException e) {
-        System.err.println("Error al escribir en el archivo comptes.csv: " + e.getMessage());
+        System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 }
 
@@ -234,7 +238,7 @@ public boolean retirarEfectivo(int importe, Compte compteSeleccionada) {
 
         if (importe % 5 != 0) {
             // Muestra un mensaje de error indicando que el monto no es válido
-            System.out.println("El monto ingresado no es válido. Solo puedes retirar múltiplos de 5.");
+            System.out.println("La cantitat no és vàlida. Nomès pots retirar múltiples de 5.");
         } else {
             boolean retiradaExitosa = retirarEfectivo(importe, compteSeleccionada);
 
@@ -280,14 +284,14 @@ public void onDepositar(ActionEvent event) {
 
         if (importe > 0) {
             depositarEfectivo(importe, compteSeleccionada);
-            missatge.setText("Dinero depositado");
+            missatge.setText("Diners depositats");
             registrarOperacion(userEmail, "Depositar", importe);
         } else {
-            // Muestra un mensaje de error indicando que el importe no es válido
-            missatge.setText("El importe ingresado no es válido. Debe ser mayor a 0.");
+            
+            missatge.setText(" import ingresat no és vàlido. Té que ser superior a 0!");
         }
     } else {
-        // Muestra un mensaje de error indicando que no se ha seleccionado ninguna cuenta
+       
         missatge.setText("Selecciona un compte");
     }
 }
@@ -302,7 +306,7 @@ public void actualizarBitlletsEnCSV() {
             writer.newLine();
         }
     } catch (IOException e) {
-        System.err.println("Error al escribir en el archivo bitllets.csv: " + e.getMessage());
+        System.err.println("Error en bitllets.csv: " + e.getMessage());
     }
 }
 
@@ -326,19 +330,19 @@ private void realizarTransferencia() {
         numeroCuentaDestino = Long.parseLong(cuentaDestinoTextField.getText());
         importe = Double.parseDouble(quantitatTextField.getText());
     } catch (NumberFormatException e) {
-        mensajeTransferenciaLabel.setText("El número de cuenta destino o el importe no son válidos.");
+        mensajeTransferenciaLabel.setText("Número de compte o import no vàlids.");
         return;
     }
 
     if (cuentaOrigen.getTipusCompte() != Compte.TipusCompte.CORRIENTE) {
-        mensajeTransferenciaLabel.setText("Solo se pueden hacer transferencias desde cuentas corrientes.");
+        mensajeTransferenciaLabel.setText("Nomès es poden fer transferències a comptes corrents.");
         return;
     }
 
     Compte cuentaDestino = buscarCuentaPorNumero(numeroCuentaDestino);
     
     if (cuentaDestino == null) {
-        mensajeTransferenciaLabel.setText("La cuenta destino no existe.");
+        mensajeTransferenciaLabel.setText("El compte destí no existeix.");
         return;
     }
 
@@ -348,18 +352,18 @@ private void realizarTransferencia() {
         actualizarSaldoEnCSV(cuentaOrigen);
         actualizarSaldoEnCSV(cuentaDestino);
 
-        // Obtiene el correo electrónico de la cuenta destino
+       
         String emailCuentaDestino = obtenerEmailCuenta(numeroCuentaDestino);
 
-        // Registra la operación en el archivo para la cuenta origen
-        registrarOperacion(userEmail, "Transferencia Saliente", importe);
+      
+        registrarOperacion(userEmail, "Transferencia de Sortida", importe);
         
-        // Registra la operación en el archivo para la cuenta destino
-        registrarOperacion(emailCuentaDestino, "Transferencia Entrante", importe);
+        
+        registrarOperacion(emailCuentaDestino, "Transferencia Entrant", importe);
 
-        mensajeTransferenciaLabel.setText("Transferencia realizada con éxito.");
+        mensajeTransferenciaLabel.setText("Transferencia realitzada amb èxit!");
     } else {
-        mensajeTransferenciaLabel.setText("Saldo insuficiente en la cuenta origen.");
+        mensajeTransferenciaLabel.setText("Saldo insuficient en el compte bancari!");
     }
 }
 
@@ -377,7 +381,7 @@ private String obtenerEmailCuenta(long numeroCuenta) {
             }
         }
     } catch (IOException e) {
-        System.err.println("Error al leer el archivo comptes.csv: " + e.getMessage());
+        System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 
     return null;
@@ -402,7 +406,7 @@ private Compte buscarCuentaPorNumero(long numeroCuenta) {
             }
         }
     } catch (IOException e) {
-        System.err.println("Error al leer el archivo comptes.csv: " + e.getMessage());
+        System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 
     return null;
@@ -418,7 +422,40 @@ private Compte buscarCuentaPorNumero(long numeroCuenta) {
         writer.write(timestamp + "," + email + "," + tipoOperacion + "," + importe);
         writer.newLine();
     } catch (IOException e) {
-        System.err.println("Error al escribir en el archivo operacions.csv: " + e.getMessage());
+        System.err.println("Error en operacions.csv: " + e.getMessage());
+    }
+}
+@FXML
+Button ferLogout;
+
+@FXML
+Button switchToMenu;
+@FXML
+private void handleLogout() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Iniciar.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) ferLogout.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        System.err.println("Error en Iniciar.fxml: " + e.getMessage());
+    }
+}
+@FXML
+private void handleSwitchToMenu() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = fxmlLoader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) switchToMenu.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        System.err.println("Error en Menu.fxml: " + e.getMessage());
     }
 }
 

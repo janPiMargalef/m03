@@ -89,7 +89,7 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
 
                 CaixerController caixerController = loader.getController();
                 caixerController.setUserEmail(email);
-                caixerController.cargarCuentasDeUsuario();
+                caixerController.cargarComptesDeUsuari();
 
                 Scene menuScene = new Scene(menuParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
