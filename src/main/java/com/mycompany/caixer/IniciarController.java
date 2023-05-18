@@ -87,9 +87,10 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
                 Parent menuParent = loader.load();
 
-                CaixerController caixerController = loader.getController();
-                caixerController.setUserEmail(email);
-                caixerController.cargarComptesDeUsuari();
+                MenuController menuController = loader.getController();
+                menuController.setEmail(email);
+               
+              
 
                 Scene menuScene = new Scene(menuParent);
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
