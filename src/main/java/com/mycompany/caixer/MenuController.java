@@ -44,5 +44,23 @@ private void switchToTransferir(ActionEvent event) {
     }
 }
 
+@FXML
+private void switchToOperacions(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Operacions.fxml"));
+        Parent transferirParent = loader.load();
+
+        // Obtenim el controlador i inicialitzem les dades
+        OperacionsController operacionsController = loader.getController();
+        operacionsController.initData(email);
+
+        Scene transferirScene = new Scene(transferirParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(transferirScene);
+        window.show();
+    } catch (IOException e) {
+        System.err.println("Error al cargar Transferir.fxml: " + e.getMessage());
+    }
+}
 
 }

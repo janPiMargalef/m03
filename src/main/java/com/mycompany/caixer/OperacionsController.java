@@ -49,20 +49,19 @@ public class OperacionsController implements Initializable {
     @FXML
 private ListView<Compte> comptesListView;
     
-   @FXML
-private ListView<Operacio> operacionsListView;
+
    @FXML
     private List<Operacio> operacions = new ArrayList<>();
 
 
 
-      private String userEmail;
+      private String email;
       private List<Compte> comptes = new ArrayList<>();
 
-    public void initData(String email) {
-    userEmail = email;
+    public void initData(String Email) {
+    email = Email;
     cargarCuentasDeUsuario();
-    cargarOperacionesDeUsuario(); 
+     
 }
 
 
@@ -77,8 +76,8 @@ private ListView<Operacio> operacionsListView;
         while ((line = reader.readLine()) != null) {
             
             String[] parts = line.split(",");
-            userEmail = "juan@example.com";
-            if (parts.length >= 6 && parts[0].equals(userEmail) && parts[5].equalsIgnoreCase("false")) {
+            email = "juan@example.com";
+            if (parts.length >= 6 && parts[0].equals(email) && parts[5].equalsIgnoreCase("false")) {
                 long numeroCompte = Long.parseLong(parts[1]);
                 String titularCompte = parts[2];
                 double saldo = Double.parseDouble(parts[3]);
@@ -108,43 +107,6 @@ public void initialize(URL location, ResourceBundle resources) {
     
     
 }
-public void cargarOperacionesDeUsuario() {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "operacions.csv");
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            System.out.println("Leyendo línea: " + line);
-            String[] parts = line.split(",");
-            if (parts.length >= 4 && parts[1].equals(userEmail)) {
-                String data = parts[0];
-                String email = parts[1];
-                String tipus = parts[2];
-                double importe = Double.parseDouble(parts[3]);
-
-                Operacio operacion = new Operacio(data, email, tipus, importe);
-                operacions.add(operacion);
-                
-            } else {
-               
-            }
-        }
-
-       
-        ObservableList<Operacio> operacionesObservableList = FXCollections.observableArrayList(operacions);
-        operacionsListView.setItems(operacionesObservableList);
-    } catch (IOException e) {
-        System.err.println("Error en operacions.csv: " + e.getMessage());
-    }
-}
-
-
-
-
-
-
 public void handleButtonPress(ActionEvent event) { //cargar teclat
     Button button = (Button) event.getSource();
     String buttonText = button.getText();
@@ -248,7 +210,7 @@ public boolean retirarEfectivo(int importe, Compte compteSeleccionada) {
             } else {
                 // Muestra un mensaje de error indicando que no se pudo retirar el importe solicitado
                 missatge.setText("Error al retirar");
-                 registrarOperacion(userEmail, "Retirar", importe);
+                 registrarOperacion(email, "Retirar", importe);
             }
         }
     } else {
@@ -272,8 +234,6 @@ public void depositarEfectivo(int importe, Compte compteSeleccionada) {
             break;
         }
     }
-
-    // Actualiza la información de los billetes en el archivo bitllets.csv
     actualizarBitlletsEnCSV();
 }
 public void onDepositar(ActionEvent event) {
@@ -285,7 +245,7 @@ public void onDepositar(ActionEvent event) {
         if (importe > 0) {
             depositarEfectivo(importe, compteSeleccionada);
             missatge.setText("Diners depositats");
-            registrarOperacion(userEmail, "Depositar", importe);
+            registrarOperacion(email, "Depositar", importe);
         } else {
             
             missatge.setText(" import ingresat no és vàlido. Té que ser superior a 0!");
@@ -309,108 +269,10 @@ public void actualizarBitlletsEnCSV() {
         System.err.println("Error en bitllets.csv: " + e.getMessage());
     }
 }
-
-
 @FXML
 private TextField cuentaDestinoTextField;
-
-
 @FXML
 private Label mensajeTransferenciaLabel;
-
-
-@FXML
-private void realizarTransferencia() {
-    Compte cuentaOrigen = comptesListView.getSelectionModel().getSelectedItem();
-    long numeroCuentaOrigen = cuentaOrigen.getNumeroCompte();
-    long numeroCuentaDestino;
-    double importe;
-
-    try {
-        numeroCuentaDestino = Long.parseLong(cuentaDestinoTextField.getText());
-        importe = Double.parseDouble(quantitatTextField.getText());
-    } catch (NumberFormatException e) {
-        mensajeTransferenciaLabel.setText("Número de compte o import no vàlids.");
-        return;
-    }
-
-    if (cuentaOrigen.getTipusCompte() != Compte.TipusCompte.CORRIENTE) {
-        mensajeTransferenciaLabel.setText("Nomès es poden fer transferències a comptes corrents.");
-        return;
-    }
-
-    Compte cuentaDestino = buscarCuentaPorNumero(numeroCuentaDestino);
-    
-    if (cuentaDestino == null) {
-        mensajeTransferenciaLabel.setText("El compte destí no existeix.");
-        return;
-    }
-
-    if (cuentaOrigen.getSaldo() >= importe) {
-        cuentaOrigen.setSaldo(cuentaOrigen.getSaldo() - importe);
-        cuentaDestino.setSaldo(cuentaDestino.getSaldo() + importe);
-        actualizarSaldoEnCSV(cuentaOrigen);
-        actualizarSaldoEnCSV(cuentaDestino);
-
-       
-        String emailCuentaDestino = obtenerEmailCuenta(numeroCuentaDestino);
-
-      
-        registrarOperacion(userEmail, "Transferencia de Sortida", importe);
-        
-        
-        registrarOperacion(emailCuentaDestino, "Transferencia Entrant", importe);
-
-        mensajeTransferenciaLabel.setText("Transferencia realitzada amb èxit!");
-    } else {
-        mensajeTransferenciaLabel.setText("Saldo insuficient en el compte bancari!");
-    }
-}
-
-private String obtenerEmailCuenta(long numeroCuenta) {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "comptes.csv");
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 6 && Long.parseLong(parts[1]) == numeroCuenta) {
-                return parts[0];
-            }
-        }
-    } catch (IOException e) {
-        System.err.println("Error en comptes.csv: " + e.getMessage());
-    }
-
-    return null;
-}
-
-private Compte buscarCuentaPorNumero(long numeroCuenta) {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "comptes.csv");
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 6 && Long.parseLong(parts[1]) == numeroCuenta) {
-                long numeroCompte = Long.parseLong(parts[1]);
-                String titularCompte = parts[2];
-                double saldo = Double.parseDouble(parts[3]);
-                Compte.TipusCompte tipusCompte = Compte.TipusCompte.valueOf(parts[4]);
-
-                return new Compte(numeroCompte, titularCompte, saldo, tipusCompte);
-            }
-        }
-    } catch (IOException e) {
-        System.err.println("Error en comptes.csv: " + e.getMessage());
-    }
-
-    return null;
-}
 
  private void registrarOperacion(String email, String tipoOperacion, double importe) {
     String projectDirectory = System.getProperty("user.dir");
@@ -425,25 +287,10 @@ private Compte buscarCuentaPorNumero(long numeroCuenta) {
         System.err.println("Error en operacions.csv: " + e.getMessage());
     }
 }
-@FXML
-Button ferLogout;
 
 @FXML
 Button switchToMenu;
-@FXML
-private void handleLogout() {
-    try {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Iniciar.fxml"));
-        Parent root = fxmlLoader.load();
 
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) ferLogout.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
-    } catch (IOException e) {
-        System.err.println("Error en Iniciar.fxml: " + e.getMessage());
-    }
-}
 @FXML
 private void handleSwitchToMenu() {
     try {
@@ -459,5 +306,11 @@ private void handleSwitchToMenu() {
     }
 }
 
-
+@FXML
+private void handleEliminar(ActionEvent event) { //eliminar numeros
+    String text = quantitatTextField.getText();
+    if (!text.isEmpty()) {
+        quantitatTextField.setText(text.substring(0, text.length() - 1));
+    }
+}
 }

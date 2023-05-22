@@ -5,7 +5,7 @@
 
 <AnchorPane prefHeight="372.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixer.MenuController">
    <children>
-      <Button layoutX="80.0" layoutY="50.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="118.0" text="Operacions" />
+      <Button layoutX="80.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToOperacions" prefHeight="95.0" prefWidth="118.0" text="Operacions" />
       <Button layoutX="300.0" layoutY="50.0" mnemonicParsing="false" onAction="#switchToTransferir" prefHeight="95.0" prefWidth="125.0" text="Transferir" />
       <Button layoutX="80.0" layoutY="186.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="118.0" text="Perfil" />
       <Button layoutX="304.0" layoutY="186.0" mnemonicParsing="false" prefHeight="95.0" prefWidth="118.0" text="Bitllets" />
