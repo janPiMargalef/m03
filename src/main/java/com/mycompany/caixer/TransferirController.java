@@ -20,10 +20,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  *
@@ -40,24 +44,18 @@ TextField cuentaDestinoTextField;
 Label mensajeTransferenciaLabel;
 @FXML
 TextField compteDestiTextField;
-
+@FXML
+Button switchToMenu;
 private String userEmail;
       private List<Compte> comptes = new ArrayList<>();
 
-    public void initData(String email) {
-    userEmail = email;
-    cargarComptesDeUsuari();
-}
 private String email;
+public void initData(String Email) {
+email = Email;
+cargarComptesDeUsuari();  
+}      
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-   public void cargarComptesDeUsuari() {
-    comptes.clear();  // Buida la llista abans de carregar les dades de nou
-
+  public void cargarComptesDeUsuari() {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File file = new File(directory, "comptes.csv");
@@ -65,8 +63,10 @@ private String email;
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
         String line;
         while ((line = reader.readLine()) != null) {
+            
             String[] parts = line.split(",");
-            if (parts.length >= 6 && parts[0].equals(userEmail) && parts[5].equalsIgnoreCase("false")) {
+            
+            if (parts.length >= 6 && parts[0].equals(email) && parts[5].equalsIgnoreCase("false")) {
                 long numeroCompte = Long.parseLong(parts[1]);
                 String titularCompte = parts[2];
                 double saldo = Double.parseDouble(parts[3]);
@@ -74,18 +74,20 @@ private String email;
 
                 Compte compte = new Compte(numeroCompte, titularCompte, saldo, tipusCompte);
                 comptes.add(compte);
+                
             }
         }
 
         ObservableList<Compte> comptesObservableList = FXCollections.observableArrayList(comptes);
         comptesListView.setItems(comptesObservableList);
-
     } catch (IOException e) {
-        System.err.println("error en comptes.csv: " + e.getMessage());
+        System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 }
 
 
+
+ 
 public void initialize(URL location, ResourceBundle resources) {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
@@ -240,6 +242,23 @@ private Compte buscarCuentaPorNumero(long numeroCuenta) {
         writer.newLine();
     } catch (IOException e) {
         System.err.println("Error en operacions.csv: " + e.getMessage());
+    }
+}
+ @FXML
+private void handleSwitchToMenu() {
+    try {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
+        Parent root = fxmlLoader.load();
+        
+        MenuController menuController = fxmlLoader.getController();
+        menuController.setEmail(email);
+        
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) switchToMenu.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    } catch (IOException e) {
+        System.err.println("Error en Menu.fxml: " + e.getMessage());
     }
 }
 }

@@ -77,12 +77,12 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
 }
     
     @FXML
-    private void ferLogin(ActionEvent event) {
+    private void ferLogin(ActionEvent event) throws IOException {
         String email = emailTextField.getText();
         String password = passwordTextField.getText();
 
         if (credencialsValides(email, password)) { //comprobar que credencials és true
-            try {
+
                  intentsFallats = 0;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
                 Parent menuParent = loader.load();
@@ -96,9 +96,7 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
                 Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 window.setScene(menuScene);
                 window.show();
-            } catch (IOException e) {
-                System.err.println("Error al cargar Menu.fxml: " + e.getMessage());
-            }
+           
         } else {
              intentsFallats++;
              missatge.setText("Credencials Incorrectes");

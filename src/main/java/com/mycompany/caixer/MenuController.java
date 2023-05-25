@@ -59,7 +59,7 @@ private void switchToOperacions(ActionEvent event) {
         window.setScene(transferirScene);
         window.show();
     } catch (IOException e) {
-        System.err.println("Error al cargar Transferir.fxml: " + e.getMessage());
+        e.printStackTrace();
     }
 }
 

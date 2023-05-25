@@ -33,40 +33,39 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+import java.io.*;
+import java.util.*;
 
 public class OperacionsController implements Initializable {
     
-    private List<Bitllet> bitllets;
+private List<Bitllet> bitllets;
 
-     @FXML
-    private TextField quantitatTextField;
-     
-    @FXML
-private ListView<Compte> comptesListView;
-    
+@FXML
+private TextField quantitatTextField;
+@FXML
+Label missatge;    
+@FXML
+private ComboBox<Compte> comptesComboBox;
 
-   @FXML
-    private List<Operacio> operacions = new ArrayList<>();
+private String email;
 
+private List<Compte> comptes = new ArrayList<>();
+@FXML
+Button switchToMenu;
+@FXML
+private TextField Bitllet5, Bitllet10, Bitllet20, Bitllet50, Bitllet100, Bitllet200, Bitllet500;
 
-
-      private String email;
-      private List<Compte> comptes = new ArrayList<>();
-
-    public void initData(String Email) {
-    email = Email;
-    cargarCuentasDeUsuario();
-     
+public void initData(String Email) {
+email = Email;
+cargarComptesDeUsuari();  
 }
 
-
-
-    public void cargarCuentasDeUsuario() {
+    public void cargarComptesDeUsuari() {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File file = new File(directory, "comptes.csv");
@@ -76,7 +75,7 @@ private ListView<Compte> comptesListView;
         while ((line = reader.readLine()) != null) {
             
             String[] parts = line.split(",");
-            email = "juan@example.com";
+            
             if (parts.length >= 6 && parts[0].equals(email) && parts[5].equalsIgnoreCase("false")) {
                 long numeroCompte = Long.parseLong(parts[1]);
                 String titularCompte = parts[2];
@@ -90,227 +89,45 @@ private ListView<Compte> comptesListView;
         }
 
         ObservableList<Compte> comptesObservableList = FXCollections.observableArrayList(comptes);
-        comptesListView.setItems(comptesObservableList);
+        comptesComboBox.setItems(comptesObservableList);
     } catch (IOException e) {
         System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 }
 
- 
-   @Override
+@Override
 public void initialize(URL location, ResourceBundle resources) {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File bitlletsFile = new File(directory, "bitllets.csv");
 
-    bitllets = Bitllet.carregarBitllets(bitlletsFile.getAbsolutePath());
+    bitllets = Bitllet.carregarBitllets(bitlletsFile.getAbsolutePath());  
+}
+@FXML
+private void onDepositar() {
     
-    
 }
-public void handleButtonPress(ActionEvent event) { //cargar teclat
-    Button button = (Button) event.getSource();
-    String buttonText = button.getText();
-    quantitatTextField.setText(quantitatTextField.getText() + buttonText);
-}
+
 
 @FXML
-Label missatge;
+private void onRetirar() {
 
-public void actualizarSaldoEnCSV(Compte compteActualizado) {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "comptes.csv");
-    List<String> lines = new ArrayList<>();
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 6 && Long.parseLong(parts[1]) == compteActualizado.getNumeroCompte()) {
-                lines.add(String.join(",", parts[0], String.valueOf(compteActualizado.getNumeroCompte()),
-                        compteActualizado.getTitularCompte(), String.valueOf(compteActualizado.getSaldo()),
-                        compteActualizado.getTipusCompte().toString(), parts[5]));
-            } else {
-                lines.add(line);
-            }
-        }
-    } catch (IOException e) {
-        System.err.println("Error al llegir larxiu comptes.csv: " + e.getMessage());
-    }
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-        for (String line : lines) {
-            writer.write(line);
-            writer.newLine();
-        }
-    } catch (IOException e) {
-        System.err.println("Error en comptes.csv: " + e.getMessage());
-    }
 }
-
-
-public boolean retirarEfectivo(int importe, Compte compteSeleccionada) {
-    Map<Integer, Integer> bitlletsARetirar = new HashMap<>();
-    int importeRestante = importe;
-
-    for (Bitllet bitllet : bitllets) {
-        int denominacio = bitllet.getDenominacio();
-        int quantitatDisponible = bitllet.getQuantitat();
-        int bitlletsNecessaris = importeRestante / denominacio;
-
-        if (bitlletsNecessaris > 0) {
-            int bitlletsARetirarActuals = Math.min(quantitatDisponible, bitlletsNecessaris);
-            bitlletsARetirar.put(denominacio, bitlletsARetirarActuals);
-            importeRestante -= denominacio * bitlletsARetirarActuals;
-        }
-
-        if (importeRestante == 0) {
-            break;
-        }
-    }
-
-    if (importeRestante == 0) {
-        // Actualiza la cantidad de billetes disponibles en el cajero
-        for (Map.Entry<Integer, Integer> entry : bitlletsARetirar.entrySet()) {
-            int denominacio = entry.getKey();
-            int quantitatARetirar = entry.getValue();
-            for (Bitllet bitllet : bitllets) {
-                if (bitllet.getDenominacio() == denominacio) {
-                    bitllet.setQuantitat(bitllet.getQuantitat() - quantitatARetirar);
-                    break;
-                }
-            }
-        }
-
-        // Actualiza el saldo del compte seleccionada y guarda el cambio en el archivo comptes.csv
-        compteSeleccionada.setSaldo(compteSeleccionada.getSaldo() - importe);
-        actualizarSaldoEnCSV(compteSeleccionada);
-        
-        return true;
-    } else {
-        return false; // No es posible retirar el importe solicitado con los billetes disponibles
-    }
-}
-
-    public void onRetirar(ActionEvent event) {
-    Compte compteSeleccionada = comptesListView.getSelectionModel().getSelectedItem();
-
-    if (compteSeleccionada != null) {
-        int importe = Integer.parseInt(quantitatTextField.getText());
-
-        if (importe % 5 != 0) {
-            // Muestra un mensaje de error indicando que el monto no es válido
-            System.out.println("La cantitat no és vàlida. Nomès pots retirar múltiples de 5.");
-        } else {
-            boolean retiradaExitosa = retirarEfectivo(importe, compteSeleccionada);
-
-            if (retiradaExitosa) {
-                missatge.setText("Retirat");
-                
-            } else {
-                // Muestra un mensaje de error indicando que no se pudo retirar el importe solicitado
-                missatge.setText("Error al retirar");
-                 registrarOperacion(email, "Retirar", importe);
-            }
-        }
-    } else {
-        // Muestra un mensaje de error indicando que no se ha seleccionado ninguna cuenta
-        missatge.setText("Selecciona un compte");
-    }
-}
-
-public void depositarEfectivo(int importe, Compte compteSeleccionada) {
-    // Suma la cantidad al saldo de la cuenta seleccionada
-    compteSeleccionada.setSaldo(compteSeleccionada.getSaldo() + importe);
-
-    // Actualiza el saldo de la cuenta seleccionada en el archivo comptes.csv
-    actualizarSaldoEnCSV(compteSeleccionada);
-
-    // Actualiza la cantidad de billetes disponibles en el cajero
-    // Aquí, como ejemplo, se distribuye la cantidad depositada en billetes de 5
-    for (Bitllet bitllet : bitllets) {
-        if (bitllet.getDenominacio() == 5) {
-            bitllet.setQuantitat(bitllet.getQuantitat() + (importe / 5));
-            break;
-        }
-    }
-    actualizarBitlletsEnCSV();
-}
-public void onDepositar(ActionEvent event) {
-    Compte compteSeleccionada = comptesListView.getSelectionModel().getSelectedItem();
-
-    if (compteSeleccionada != null) {
-        int importe = Integer.parseInt(quantitatTextField.getText());
-
-        if (importe > 0) {
-            depositarEfectivo(importe, compteSeleccionada);
-            missatge.setText("Diners depositats");
-            registrarOperacion(email, "Depositar", importe);
-        } else {
-            
-            missatge.setText(" import ingresat no és vàlido. Té que ser superior a 0!");
-        }
-    } else {
-       
-        missatge.setText("Selecciona un compte");
-    }
-}
-public void actualizarBitlletsEnCSV() {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "bitllets.csv");
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-        for (Bitllet bitllet : bitllets) {
-            writer.write(bitllet.getDenominacio() + "," + bitllet.getQuantitat());
-            writer.newLine();
-        }
-    } catch (IOException e) {
-        System.err.println("Error en bitllets.csv: " + e.getMessage());
-    }
-}
-@FXML
-private TextField cuentaDestinoTextField;
-@FXML
-private Label mensajeTransferenciaLabel;
-
- private void registrarOperacion(String email, String tipoOperacion, double importe) {
-    String projectDirectory = System.getProperty("user.dir");
-    File directory = new File(projectDirectory + File.separator + "data");
-    File file = new File(directory, "operacions.csv");
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
-        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-        writer.write(timestamp + "," + email + "," + tipoOperacion + "," + importe);
-        writer.newLine();
-    } catch (IOException e) {
-        System.err.println("Error en operacions.csv: " + e.getMessage());
-    }
-}
-
-@FXML
-Button switchToMenu;
-
 @FXML
 private void handleSwitchToMenu() {
     try {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Menu.fxml"));
         Parent root = fxmlLoader.load();
-
+        
+        MenuController menuController = fxmlLoader.getController();
+        menuController.setEmail(email);
+        
         Scene scene = new Scene(root);
         Stage stage = (Stage) switchToMenu.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     } catch (IOException e) {
         System.err.println("Error en Menu.fxml: " + e.getMessage());
-    }
-}
-
-@FXML
-private void handleEliminar(ActionEvent event) { //eliminar numeros
-    String text = quantitatTextField.getText();
-    if (!text.isEmpty()) {
-        quantitatTextField.setText(text.substring(0, text.length() - 1));
     }
 }
 }

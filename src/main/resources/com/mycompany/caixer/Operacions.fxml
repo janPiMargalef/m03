@@ -1,45 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="518.0" prefWidth="739.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixer.OperacionsController">
-    <Label layoutX="165.0" layoutY="61.0" text="Operacions" />
-    <TextField fx:id="quantitatTextField" editable="false" layoutX="121.0" layoutY="88.0" />
-    <GridPane hgap="10" layoutX="151.0" layoutY="163.0" vgap="10">
-        <Button onAction="#handleButtonPress" text="1" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <Button onAction="#handleButtonPress" text="2" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-        <Button onAction="#handleButtonPress" text="3" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-        <Button onAction="#handleButtonPress" text="4" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-        <Button onAction="#handleButtonPress" text="5" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-        <Button onAction="#handleButtonPress" text="6" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-        <Button onAction="#handleButtonPress" text="7" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-        <Button onAction="#handleButtonPress" text="8" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-        <Button onAction="#handleButtonPress" text="9" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-        <Button onAction="#handleButtonPress" text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <columnConstraints>
-         <ColumnConstraints />
-         <ColumnConstraints />
-         <ColumnConstraints />
-      </columnConstraints>
-      <rowConstraints>
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-         <RowConstraints />
-      </rowConstraints>
-    </GridPane>
-    <Button layoutX="251.0" layoutY="316.0" onAction="#onRetirar" prefHeight="25.0" prefWidth="59.0" text="retirar" />
-   <Label fx:id="missatge" layoutX="189.0" layoutY="125.0" prefHeight="17.0" prefWidth="14.0" />
-   <Label layoutX="504.0" layoutY="92.0" text="Comptes" />
-   <Button layoutX="74.0" layoutY="316.0" onAction="#onDepositar" text="Ingresar" />
-   <ListView fx:id="comptesListView" layoutX="401.0" layoutY="125.0" prefHeight="200.0" prefWidth="253.0" />
-   <Button fx:id="switchToMenu" layoutX="505.0" layoutY="341.0" mnemonicParsing="false" onAction="#handleSwitchToMenu" text="Menu" />
-   <Button layoutX="230.0" layoutY="268.0" mnemonicParsing="false" onAction="#handleEliminar" style="-fx-background-color: red;" text="&lt;----" />
+    <Button layoutX="160.0" layoutY="466.0" onAction="#onRetirar" prefHeight="25.0" prefWidth="59.0" text="retirar" />
+   <Label layoutX="367.0" layoutY="435.0" text="Comptes" />
+   <Button layoutX="68.0" layoutY="466.0" onAction="#onDepositar" text="Ingresar" />
+   <Button fx:id="switchToMenu" layoutX="678.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleSwitchToMenu" text="Menu" />
+   <ComboBox fx:id="comptesComboBox" layoutX="248.0" layoutY="466.0" prefHeight="25.0" prefWidth="286.0" />
+   <Label layoutX="54.0" layoutY="74.0" text="5€" />
+   <Label layoutX="145.0" layoutY="74.0" text="10€" />
+   <Label layoutX="238.0" layoutY="74.0" text="20€" />
+   <Label layoutX="330.0" layoutY="74.0" text="50€" />
+   <Label layoutX="423.0" layoutY="74.0" text="100€" />
+   <Label layoutX="521.0" layoutY="74.0" text="200€" />
+   <Label layoutX="629.0" layoutY="74.0" text="500€" />
+   <TextField fx:id="Bitllet5" layoutX="37.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet200" layoutX="511.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet100" layoutX="413.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet50" layoutX="317.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet20" layoutX="225.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet10" layoutX="132.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
+   <TextField fx:id="Bitllet500" layoutX="619.0" layoutY="106.0" prefHeight="38.0" prefWidth="47.0" />
 </AnchorPane>
