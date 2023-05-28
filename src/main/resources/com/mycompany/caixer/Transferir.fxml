@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane prefHeight="399.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixer.TransferirController">
-      <TextField fx:id="quantitatTextField" editable="false" layoutX="67.0" layoutY="55.0" />
-        <GridPane hgap="10" layoutX="67.0" layoutY="80.0" prefHeight="0.0" prefWidth="4.0" vgap="10">
+      <TextField fx:id="quantitatTextField" editable="false" layoutX="128.0" layoutY="55.0" />
+        <GridPane hgap="10" layoutX="151.0" layoutY="84.0" prefHeight="0.0" prefWidth="4.0" vgap="10">
         <Button onAction="#handleButtonPress" text="1" GridPane.columnIndex="1" GridPane.rowIndex="3" />
         <Button onAction="#handleButtonPress" text="2" GridPane.columnIndex="2" GridPane.rowIndex="3" />
         <Button onAction="#handleButtonPress" text="3" GridPane.columnIndex="3" GridPane.rowIndex="3" />
@@ -21,7 +21,7 @@
         <Button onAction="#handleButtonPress" text="7" GridPane.columnIndex="1" GridPane.rowIndex="6" />
         <Button onAction="#handleButtonPress" text="8" GridPane.columnIndex="2" GridPane.rowIndex="6" />
         <Button onAction="#handleButtonPress" text="9" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-        <Button onAction="#handleButtonPress" text="0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+        <Button onAction="#handleButtonPress" text="0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
       <columnConstraints>
          <ColumnConstraints />
          <ColumnConstraints />
@@ -51,10 +51,12 @@
          <RowConstraints />
       </rowConstraints>
     </GridPane>
-   <Button layoutX="14.0" layoutY="195.0" mnemonicParsing="false" onAction="#handleEliminar" prefHeight="25.0" prefWidth="53.0" style="-fx-background-color: red;" text="&lt;---" />
+   <Button layoutX="143.0" layoutY="200.0" mnemonicParsing="false" onAction="#handleEliminar" prefHeight="25.0" prefWidth="35.0" style="-fx-background-color: red;" text="&lt;--" />
    <ListView fx:id="comptesListView" layoutX="222.0" layoutY="255.0" prefHeight="114.0" prefWidth="287.0" />
-    <TextField fx:id="compteDestiTextField" layoutX="67.0" layoutY="14.0" />
-    <Button layoutX="7.0" layoutY="230.0" mnemonicParsing="false" onAction="#realizarTransferencia" prefHeight="25.0" prefWidth="68.0" text="transferir" />
+    <TextField fx:id="compteDestiTextField" layoutX="128.0" layoutY="14.0" />
    <Label fx:id="mensajeTransferenciaLabel" layoutX="277.0" layoutY="18.0" />
    <Button fx:id="switchToMenu" layoutX="433.0" layoutY="23.0" mnemonicParsing="false" onAction="#handleSwitchToMenu" text="Menú" />
+   <Label layoutX="38.0" layoutY="18.0" text="Compte destí:" />
+   <Label layoutX="59.0" layoutY="59.0" text="Quantitat:" />
+    <Button layoutX="109.0" layoutY="230.0" mnemonicParsing="false" onAction="#realizarTransferencia" prefHeight="25.0" prefWidth="68.0" text="transferir" />
 </AnchorPane>

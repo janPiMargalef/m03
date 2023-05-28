@@ -43,13 +43,12 @@ public class Bitllet {
     List<Bitllet> bitllets = new ArrayList<>();
     String line;
     try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-        String headerLine = br.readLine();
-        while ((line = br.readLine()) != null) {
-            String[] values = line.split(",");
-            int denominacio = Integer.parseInt(values[0]);
-            int quantitat = Integer.parseInt(values[1]);
-            bitllets.add(new Bitllet(denominacio, quantitat));
-        }
+    while ((line = br.readLine()) != null) {  
+    String[] values = line.split(",");  
+    int denominacio = Integer.parseInt(values[0]); 
+    int quantitat = Integer.parseInt(values[1]); 
+    bitllets.add(new Bitllet(denominacio, quantitat));  
+    }
     } catch (IOException e) {
         e.printStackTrace();
     }

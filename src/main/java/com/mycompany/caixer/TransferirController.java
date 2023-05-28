@@ -62,6 +62,7 @@ cargarComptesDeUsuari();
 
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
         String line;
+        comptes.clear();
         while ((line = reader.readLine()) != null) {
             
             String[] parts = line.split(",");
