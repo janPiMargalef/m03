@@ -68,7 +68,7 @@ email = Email;
 cargarComptesDeUsuari();  
 }
 
-    public void cargarComptesDeUsuari() {
+public void cargarComptesDeUsuari() {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File file = new File(directory, "comptes.csv");
@@ -133,7 +133,7 @@ private void onDeleteButtonClicked() {
     }
 }
 
- private static final String CSV_FILE = "data/bitllets.csv";
+private static final String CSV_FILE = "data/bitllets.csv";
 
 @FXML
 private void onDepositar() {

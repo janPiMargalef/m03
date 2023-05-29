@@ -8,31 +8,32 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="701.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixer.CaixerController">
+<AnchorPane prefHeight="839.0" prefWidth="922.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.caixer.PerfilController">
     <children>
-        <Label layoutX="116.0" layoutY="88.0" text="Número de cuenta:" />
-        <TextField fx:id="accountNumberTextField" layoutX="116.0" layoutY="118.0" />
         
-        <Label layoutX="116.0" layoutY="168.0" text="Titular de cuenta:" />
-        <TextField fx:id="accountHolderTextField" layoutX="116.0" layoutY="198.0" />
+        <Label layoutX="86.0" layoutY="388.0" text="Titular del compte:" />
+        <TextField fx:id="TitularTextField" layoutX="194.0" layoutY="386.0" />
         
-        <Label layoutX="116.0" layoutY="248.0" text="Saldo inicial:" />
-        <TextField fx:id="initialBalanceTextField" layoutX="116.0" layoutY="278.0" />
-         <Label layoutX="80.0" layoutY="337.0" text="Tipo de cuenta:" />
-    <ComboBox fx:id="accountTypeComboBox" layoutX="174.0" layoutY="333.0" />
+        <Label layoutX="122.0" layoutY="427.0" text="Saldo inicial:" />
+        <TextField fx:id="SaldoTextField" layoutX="194.0" layoutY="423.0" />
+         <Label layoutX="92.0" layoutY="470.0" text="Tipus de compte:" />
+    <ComboBox fx:id="TipusCompteComboBox" layoutX="194.0" layoutY="466.0" prefHeight="25.0" prefWidth="149.0" />
         
-         <Button fx:id="createAccountButton" layoutX="132.0" layoutY="402.0" text="Crear cuenta" />
+         <Button layoutX="176.0" layoutY="556.0" onAction="#crearCompte" prefHeight="25.0" prefWidth="104.0" style="-fx-background-color: green;" text="Crear Compte" />
         
-        <ListView fx:id="accountsListView" layoutX="315.0" layoutY="86.0" prefHeight="316.0" prefWidth="292.0" />
-      <Button layoutX="424.0" layoutY="624.0" mnemonicParsing="false" onAction="#switchToOperacions" text="operacions" />
-      <TextField fx:id="titularTextField" layoutX="702.0" layoutY="321.0" />
-      <Label layoutX="426.0" layoutY="69.0" text="Comptes" />
-      <DatePicker fx:id="dataExpiracioPicker" layoutX="695.0" layoutY="371.0" />
-      <Label layoutX="620.0" layoutY="375.0" text="data expiracio" />
-      <ListView fx:id="targetesListView" layoutX="673.0" layoutY="105.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button fx:id="crearTargeta" layoutX="751.0" layoutY="443.0" mnemonicParsing="false" onAction="#crearTarjetaAccion" text="crear" />
-      <Label layoutX="669.0" layoutY="329.0" text="titular" />
-      <Label layoutX="756.0" layoutY="69.0" text="Tarjetes" />
+        <ListView fx:id="ComptesListView" layoutX="113.0" layoutY="184.0" prefHeight="173.0" prefWidth="292.0" />
+      <Label layoutX="235.0" layoutY="151.0" text="Comptes" />
+      <DatePicker fx:id="dataExpiracioPicker" layoutX="638.0" layoutY="390.0" />
+      <Label layoutX="549.0" layoutY="394.0" text="Data expiracio:" />
+      <ListView fx:id="targetesListView" layoutX="564.0" layoutY="184.0" prefHeight="173.0" prefWidth="292.0" />
+      <Button layoutX="680.0" layoutY="440.0" mnemonicParsing="false" onAction="#crearTargeta" prefHeight="25.0" prefWidth="91.0" text="Crear Targeta" />
+      <Label layoutX="696.0" layoutY="151.0" text="Targetes" />
+      <Button fx:id="switchToMenu" layoutX="802.0" layoutY="24.0" mnemonicParsing="false" onAction="#handleSwitchToMenu" prefHeight="25.0" prefWidth="91.0" text="Menú" />
+      <Label fx:id="missatge" layoutX="138.0" layoutY="599.0" prefHeight="52.0" prefWidth="374.0" />
+      <Button layoutX="293.0" layoutY="556.0" onAction="#eliminarCompte" style="-fx-background-color: red;" text="Eliminar Compte" />
+      <Label layoutX="113.0" layoutY="519.0" text="Contrasenya:" />
+      <TextField fx:id="contrasenyaTextField" layoutX="194.0" layoutY="515.0" />
+      <Button layoutX="680.0" layoutY="24.0" mnemonicParsing="false" onAction="#tancarSessio" prefHeight="25.0" prefWidth="91.0" text="Tancar Sessió" />
       
       
       

@@ -28,6 +28,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
@@ -41,6 +42,8 @@ public class IniciarController {
     private PasswordField passwordTextField;
 
     private CaixerController caixerController;
+    @FXML
+    Button registrarseButton;
     
     private int intentsFallats = 0;
 
@@ -83,7 +86,7 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
 
         if (credencialsValides(email, password)) { //comprobar que credencials és true
 
-                 intentsFallats = 0;
+                intentsFallats = 0;
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("Menu.fxml"));
                 Parent menuParent = loader.load();
 
@@ -133,4 +136,24 @@ private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
 
     return false;
 }
+   
+  @FXML
+public void registrarUsuari() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Registrar.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+
+        // Tanca la finestra actual si és necessari
+        Stage currentStage = (Stage) registrarseButton.getScene().getWindow();
+        currentStage.close();
+    } catch (IOException e) {
+        System.err.println("Error carregant Registrar.fxml: " + e.getMessage());
+    }
+}
+
 }

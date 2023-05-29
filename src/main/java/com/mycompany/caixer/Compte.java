@@ -12,8 +12,9 @@ package com.mycompany.caixerautomatic;
  */
 public class Compte {
     public enum TipusCompte {
-        CORRIENTE, AHORROS
-    }
+    CORRIENTE,
+    AHORROS
+}
     
     private long numeroCompte;
     private String titularCompte;

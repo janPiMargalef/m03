@@ -55,7 +55,7 @@ email = Email;
 cargarComptesDeUsuari();  
 }      
 
-  public void cargarComptesDeUsuari() {
+public void cargarComptesDeUsuari() {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File file = new File(directory, "comptes.csv");
@@ -85,9 +85,6 @@ cargarComptesDeUsuari();
         System.err.println("Error en comptes.csv: " + e.getMessage());
     }
 }
-
-
-
  
 public void initialize(URL location, ResourceBundle resources) {
     String projectDirectory = System.getProperty("user.dir");

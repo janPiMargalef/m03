@@ -31,7 +31,6 @@ private void switchToTransferir(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Transferir.fxml"));
         Parent transferirParent = loader.load();
 
-        // Obtenim el controlador i inicialitzem les dades
         TransferirController transferirController = loader.getController();
         transferirController.initData(email);  // passa l'email a la nova escena
 
@@ -50,9 +49,26 @@ private void switchToOperacions(ActionEvent event) {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Operacions.fxml"));
         Parent transferirParent = loader.load();
 
-        // Obtenim el controlador i inicialitzem les dades
         OperacionsController operacionsController = loader.getController();
         operacionsController.initData(email);
+
+        Scene transferirScene = new Scene(transferirParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(transferirScene);
+        window.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+
+@FXML
+private void switchToPerfil(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Perfil.fxml"));
+        Parent transferirParent = loader.load();
+
+        PerfilController perfilController = loader.getController();
+        perfilController.initData(email);
 
         Scene transferirScene = new Scene(transferirParent);
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
