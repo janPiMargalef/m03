@@ -1,14 +1,8 @@
 Data,Email,Tipus,Import
-2023-05-05 19:41:43,juan@example.com,Transferencia Saliente,100.0
-2023-05-05 19:41:43,juan@example.com,Transferencia Entrante,100.0
-2023-05-05 20:28:09,juan@example.com,Depositar,100.0
-2023-05-18 13:39:48,maria@example.com,Transferencia de Sortida,100.0
-2023-05-18 13:39:48,maria@example.com,Transferencia Entrant,100.0
-2023-05-18 13:46:37,maria@example.com,Transferencia de Sortida,100.0
-2023-05-18 13:46:37,maria@example.com,Transferencia Entrant,100.0
-2023-05-18 13:46:49,maria@example.com,Transferencia de Sortida,100.0
-2023-05-18 13:46:49,maria@example.com,Transferencia Entrant,100.0
-2023-05-18 13:49:24,maria@example.com,Transferencia de Sortida,200.0
-2023-05-18 13:49:24,maria@example.com,Transferencia Entrant,200.0
-2023-05-28 22:30:34,null,Transferencia de Sortida,100.0
-2023-05-28 22:30:34,juan@example.com,Transferencia Entrant,100.0
+2023-05-30 12:12:08,jan2@gmail.com,Retiració,10.0
+2023-05-30 23:05:30,jan@gmail.com,Retiració,50.0
+2023-05-30 23:05:37,jan@gmail.com,Dipòsit,2500.0
+2023-05-30 23:05:45,jan@gmail.com,Retiració,2500.0
+2023-05-30 23:05:50,jan@gmail.com,Dipòsit,50.0
+2023-05-30 23:06:54,null,Transferencia de Sortida,50.0
+2023-05-30 23:06:54,jan2@gmail.com,Transferencia Entrant,50.0

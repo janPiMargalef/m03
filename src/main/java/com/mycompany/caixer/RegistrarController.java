@@ -4,9 +4,13 @@
  */
 package com.mycompany.caixer;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,26 +36,51 @@ private PasswordField passwordTextField;
 Label missatge;
 
 @FXML
-private void registrarUsuari(ActionEvent event) {
-    String email = emailTextField.getText();
-    String nom = nomTextField.getText();
-    String password = passwordTextField.getText();
+    private void registrarUsuari(ActionEvent event) {
+        String email = emailTextField.getText();
+        String nom = nomTextField.getText();
+        String password = passwordTextField.getText();
 
-    if (password.length() < 8) {
-        missatge.setText("La contrasenya ha de tenir almenys 8 caràcters.");
-        return;
-    }
-    String csvContent = email + "," + password + "," + nom + ",," + "\n";
-    try {
-        BufferedWriter writer = new BufferedWriter(new FileWriter("data/usuaris.csv", true));
-        writer.append(csvContent);
-        writer.close();
-        SwitchToIniciar();
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-}
+        if (password.length() < 8) {
+            // Mostra un missatge d'error a l'usuari
+            missatge.setText("La contrasenya ha de tenir almenys 8 caràcters.");
+            return;
+        }
 
+        // Comprovar si l'email ja existeix
+        List<String[]> users = readCsvFile("data/usuaris.csv");
+        for (String[] user : users) {
+            if (user[0].equals(email)) {
+               missatge.setText("Aquest email ja existeix.");
+                return;
+            }
+        }
+
+        String csvContent = email + "," + password + "," + nom + ",," + "\n";
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("data/usuaris.csv", true));
+            writer.append(csvContent);
+            writer.close();
+            SwitchToIniciar();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<String[]> readCsvFile(String filePath) {
+        List<String[]> content = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = br.readLine()) != null) {
+                content.add(line.split(","));
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
 @FXML
 private void SwitchToIniciar() {
         try {

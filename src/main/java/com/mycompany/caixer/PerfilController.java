@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,8 +58,15 @@ Label missatge;
 @FXML
 private TextField contrasenyaTextField;
 @FXML
+Label emailPerfil;
+@FXML
+private TextField novaContrasenyaTextField;
+@FXML
+private TextField confirmaContrasenyaTextField;
+@FXML
+Label missatgePass;
+@FXML
 private ListView<Targeta> targetesListView;
-
 private ObservableList<Targeta> targetesObservableList = FXCollections.observableArrayList();
 
 
@@ -86,10 +94,6 @@ public void cargarComptesDeUsuari() {
                 
             }
         }
-
-        // Afegim un missatge per veure quantes comptes hem carregat
-        System.out.println("Comptes carregades: " + comptes.size());
-
         ObservableList<Compte> comptesObservableList = FXCollections.observableArrayList(comptes);
         ComptesListView.setItems(comptesObservableList);
     } catch (IOException e) {
@@ -101,10 +105,11 @@ public void initData(String Email) {
 email = Email;
 cargarComptesDeUsuari(); 
 cargarTargetes();
+emailPerfil.setText(email);
 }
 
 @FXML
-    public void initialize() {
+public void initialize() {
    TipusCompteComboBox.getItems().addAll(TipusCompte.CORRIENTE, TipusCompte.AHORROS);
     ObservableList<Compte> comptesObservable = FXCollections.observableArrayList(comptes);
     ComptesListView.setItems(comptesObservable);
@@ -147,7 +152,62 @@ private void handleSwitchToMenu() {
     }
 }
 
+@FXML
+private void canviarContrasenya(ActionEvent event) {
+    String novaContrasenya = novaContrasenyaTextField.getText();
+    String confirmaContrasenya = confirmaContrasenyaTextField.getText();
 
+    if (novaContrasenya.length() < 8) {
+        missatgePass.setText("La contrasenya ha de tenir almenys 8 caràcters.");
+        return;
+    }
+
+    if (!novaContrasenya.equals(confirmaContrasenya)) {
+        missatgePass.setText("Les contrasenyes no coincideixen.");
+        return;
+    }
+
+    List<String[]> users = readCsvFile("data/usuaris.csv");
+    for (String[] user : users) {
+        if (user[0].equals(email)) {
+            user[1] = novaContrasenya;
+            writeCsvFile(users, "data/usuaris.csv");
+            missatgePass.setText("Contrasenya canviada correctament.");
+            novaContrasenyaTextField.clear();
+            confirmaContrasenyaTextField.clear();
+            return;
+        }
+    }
+    missatgePass.setText("No s'ha trobat l'email.");
+}
+
+private List<String[]> readCsvFile(String filePath) {
+        List<String[]> content = new ArrayList<>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = br.readLine()) != null) {
+                content.add(line.split(","));
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content;
+    }
+
+private void writeCsvFile(List<String[]> content, String filePath) {
+    try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            for (String[] line : content) {
+                writer.write(String.join(",", line));
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 @FXML
 public void crearCompte() {
     if (comptes.size() < 10) {

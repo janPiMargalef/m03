@@ -78,5 +78,55 @@ private void switchToPerfil(ActionEvent event) {
         e.printStackTrace();
     }
 }
+@FXML
+private void switchToHistorial(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Historial.fxml"));
+        Parent transferirParent = loader.load();
 
+        HistorialController historialController = loader.getController();
+        historialController.initData(email);
+
+        Scene transferirScene = new Scene(transferirParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(transferirScene);
+        window.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+@FXML
+private void switchToBitllets(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Bitllets.fxml"));
+        Parent transferirParent = loader.load();
+
+        BitlletsController bitlletsController = loader.getController();
+        bitlletsController.initData(email);
+
+        Scene transferirScene = new Scene(transferirParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(transferirScene);
+        window.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
+@FXML
+private void switchToFactures(ActionEvent event) {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("Factures.fxml"));
+        Parent transferirParent = loader.load();
+
+        FacturesController facturesController = loader.getController();
+        facturesController.initData(email);
+
+        Scene transferirScene = new Scene(transferirParent);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(transferirScene);
+        window.show();
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 }

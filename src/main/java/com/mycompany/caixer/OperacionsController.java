@@ -63,6 +63,7 @@ Button switchToMenu;
 @FXML
 private TextField Bitllet5, Bitllet10, Bitllet20, Bitllet50, Bitllet100, Bitllet200, Bitllet500;
 
+
 public void initData(String Email) {
 email = Email;
 cargarComptesDeUsuari();  
@@ -88,7 +89,7 @@ public void cargarComptesDeUsuari() {
 
                 Compte compte = new Compte(numeroCompte, titularCompte, saldo, tipusCompte);
                 comptes.add(compte);
-                
+               
             }
         }
 
@@ -114,6 +115,7 @@ public void initialize(URL location, ResourceBundle resources) {
     Bitllet100.setOnMouseClicked(e -> selectedTextField = Bitllet100);
     Bitllet200.setOnMouseClicked(e -> selectedTextField = Bitllet200);
     Bitllet500.setOnMouseClicked(e -> selectedTextField = Bitllet500);
+     
 }
 @FXML
 private void onNumberButtonClicked(ActionEvent event) {
@@ -122,6 +124,7 @@ private void onNumberButtonClicked(ActionEvent event) {
         String existingText = selectedTextField.getText();
         String newText = existingText + clickedButton.getText();
         selectedTextField.setText(newText);
+        
     }
 }
 @FXML
@@ -213,7 +216,7 @@ private void onDepositar() {
         compteSeleccionat.setSaldo(compteSeleccionat.getSaldo() + totalDepositat);
         actualitzarSaldoEnCSV(compteSeleccionat);
         missatgeOperacions.setText("Dipòsit realitzat correctament.");
-        
+        registrarOperacion(email,"Dipòsit", totalDepositat);
         Bitllet5.clear();
         Bitllet10.clear();
         Bitllet20.clear();
@@ -311,7 +314,7 @@ private void onRetirar() {
             compteSeleccionat.setSaldo(compteSeleccionat.getSaldo() - totalRetirada);
             actualitzarSaldoEnCSV(compteSeleccionat);
             missatgeOperacions.setText("Retiració realitzada correctament.");
-            
+            registrarOperacion(email,"Retiració", totalRetirada);
             Bitllet5.clear();
             Bitllet10.clear();
             Bitllet20.clear();
@@ -356,6 +359,19 @@ public void actualitzarSaldoEnCSV(Compte compteActualizado) {
         }
     } catch (IOException e) {
         System.err.println("Error en comptes.csv: " + e.getMessage());
+    }
+}
+private void registrarOperacion(String email, String tipoOperacion, double importe) {
+    String projectDirectory = System.getProperty("user.dir");
+    File directory = new File(projectDirectory + File.separator + "data");
+    File file = new File(directory, "operacions.csv");
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, true))) {
+        String timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+        writer.write(timestamp + "," + email + "," + tipoOperacion + "," + importe);
+        writer.newLine();
+    } catch (IOException e) {
+        System.err.println("Error en operacions.csv: " + e.getMessage());
     }
 }
 @FXML

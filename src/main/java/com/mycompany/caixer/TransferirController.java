@@ -229,7 +229,7 @@ private Compte buscarCuentaPorNumero(long numeroCuenta) {
     return null;
 }
 
- private void registrarOperacion(String email, String tipoOperacion, double importe) {
+private void registrarOperacion(String email, String tipoOperacion, double importe) {
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");
     File file = new File(directory, "operacions.csv");
