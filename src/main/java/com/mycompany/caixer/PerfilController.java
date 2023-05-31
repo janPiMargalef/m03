@@ -340,18 +340,16 @@ public void cargarTargetes() {
                 long numeroTarjeta = Long.parseLong(parts[1]);
                 String fechaExpiracion = parts[2];
                 int cvv = Integer.parseInt(parts[3]);
-
-                // Necessitaràs un mètode per obtenir un compte a partir del seu número.
                System.out.println("Buscant compte amb el número: " + numeroCompte);
 Compte compte = obtenirComptePerNumero(numeroCompte);
 
                 if (compte != null) {
                     Targeta targeta = new Targeta(compte, numeroTarjeta, fechaExpiracion, cvv);
-                    System.out.println("Targeta creada: " + targeta);  // Imprimeix la targeta que acabes de crear
+                    System.out.println("Targeta creada: " + targeta);  
                      targetesObservableList.add(targeta);
-                    System.out.println("Llista de targetes: " + targetesObservableList);  // Imprimeix la llista de targetes després d'afegir cada targeta
+                    System.out.println("Llista de targetes: " + targetesObservableList);  
                 } else {
-                    System.out.println("No s'ha trobat cap compte amb el número: " + numeroCompte);  // Si compte és null, imprimeix aquest missatge
+                    System.out.println("No s'ha trobat cap compte amb el número: " + numeroCompte);  
                 }
             }
             
@@ -382,8 +380,6 @@ public void crearTargeta() {
     sb.append(String.valueOf(targeta.getCvv()));
 
     writer.write(sb.toString() + System.lineSeparator());
-    
-    // Afegit un missatge per indicar que la targeta s'ha creat correctament
     missatge.setText("Targeta creada correctament");
 } catch (IOException e) {
     System.err.println("Error al escriure a l'arxiu targetes.csv: " + e.getMessage());

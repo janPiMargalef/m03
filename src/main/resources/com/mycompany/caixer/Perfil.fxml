@@ -55,7 +55,7 @@
       <Label layoutX="549.0" layoutY="591.0" text="Nova contrasenya:" />
       <Label layoutX="512.0" layoutY="655.0" text="Confirma la contrasenya:" />
       <Button layoutX="698.0" layoutY="720.0" mnemonicParsing="false" onAction="#canviarContrasenya" style="-fx-background-color: orange;" text="Canviar" />
-      <Label fx:id="missatgePass" layoutX="626.0" layoutY="763.0" prefHeight="17.0" prefWidth="34.0" />
+      <Label fx:id="missatgePass" layoutX="535.0" layoutY="769.0" prefHeight="17.0" prefWidth="402.0" />
       
       
       

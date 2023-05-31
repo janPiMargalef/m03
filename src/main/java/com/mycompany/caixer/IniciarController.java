@@ -41,15 +41,13 @@ public class IniciarController {
     @FXML
     private PasswordField passwordTextField;
 
-    private CaixerController caixerController;
+    
     @FXML
     Button registrarseButton;
     
     private int intentsFallats = 0;
 
-    public void setCaixerController(CaixerController caixerController) {
-        this.caixerController = caixerController;
-    }
+    
 private void bloquejarCompte(String email) {  //bloquejar als 3 intents fallats
     String projectDirectory = System.getProperty("user.dir");
     File directory = new File(projectDirectory + File.separator + "data");

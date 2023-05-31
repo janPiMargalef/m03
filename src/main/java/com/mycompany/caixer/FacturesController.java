@@ -56,7 +56,7 @@ TextField importTextField;
 DatePicker dataTextField;
 @FXML
 ComboBox numeroBox;
- private List<Factura> factures;
+private List<Factura> factures;
 public void initData(String Email) {
 email = Email;
 cargarComptesDeUsuari();  
